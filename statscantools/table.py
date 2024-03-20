@@ -46,7 +46,7 @@ class Table:
     def __init__(self, table, path='dataset_download/'):
         self._metadata = self.get_metadata(f'{path}{table}_metadata.csv')
         self.meta_dataframe = self.make_meta_dataframes(self._metadata)
-        self.dataframe = pd.read_csv(f'{path}{table}.csv', low_memory=False)
+        self.dataframe = pd.read_csv(f'{path}{table}.csv', low_memory=False, dtype={'COORDINATE' : 'object'})
         self.lowercase_cols()
         self.split_coordinate()
         self.get_dimensions()
@@ -101,7 +101,6 @@ class Table:
         df = self.dataframe
         try:
             df = df.join(df['coordinate'].str.split('.', expand=True).astype('int16').rename(lambda x:'dim_{}'.format(x+1), axis=1)) 
-            #df = df.join(df['coordinate'].str.split('.', expand=True).rename(lambda x:'dim_{}'.format(x+1), axis=1)) #.add_suffix('_ID'))
             """
             the line above is the same as :
             coord_df = df['coordinate'].str.split('.', expand=True)
