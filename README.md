@@ -27,3 +27,4 @@ Each row will contain relationship information:
 - dim_#_Parent Member ID	
 - dim_#_depth
 
+It is possible to group by Parent ID or use self-joins to group data
